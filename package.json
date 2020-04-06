@@ -1,0 +1,22 @@
+{
+  "name": "apiomdb",
+  "version": "1.0.0",
+  "description": "Practica Plataformas Web",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MClaudio/ApiOMDb.git"
+  },
+  "author": "Claudio Maldonado",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MClaudio/ApiOMDb/issues"
+  },
+  "homepage": "https://github.com/MClaudio/ApiOMDb#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Document</title>
+    <title>OMBd</title>
 </head>
 
 <body>
 
     <nav class="navbar navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="./index.html">OMBdAPI</a>
-            <form class="form-inline">
+            <a class="navbar-brand" href="/">OMBdAPI</a>
+            <form class="form-inline" id="form-search">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
@@ -22,21 +22,8 @@
     </nav>
 
     <div class="container mt-5">
-        <div class="row">
-
-            <div class="col" style="background-color: aqua;">
-               <img src="" alt="imagen">
-            </div>
-
-            <div class="col">
-                <h2>Titulo</h2>
-                <p>Director: <span>Claudio</span></p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique natus aperiam deleniti molestias commodi porro minima sed quod. Voluptate voluptatibus accusantium ea voluptas officiis minima nemo distinctio soluta doloremque velit.</p>
-                <p>AñoÑ 2020</p>
-                <p>Genero: Accion, Aventura</p>
-            </div>
-
-            
+        <div class="row" id="content-movies">
+            <h2>No Hay Peliculas</h2>
         </div>
     </div>
 
@@ -49,6 +36,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    <script src="/js/functions.js"></script>
 </body>
 
 </html>
