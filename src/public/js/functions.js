@@ -42,7 +42,7 @@ function listmovies(url) {
             let j = 1;
             let list = '';
             for (let i = 0; i < movies.length; i += 5) {
-                list += `<li class="page-item"><a class="page-link" onclick="pagination(this, ${j})">${j}</a></li>`;
+                list += `<li class="page-item"><a class="page-link" style="cursor: pointer;" onclick="pagination(this, ${j})">${j}</a></li>`;
 
                 j += 1;
             }
