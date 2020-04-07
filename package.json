@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MClaudio/ApiOMDb.git"
+    "url": "git+https://github.com/MClaudio/Practica00-Consumo-de-APIs-en-la-nube.git"
   },
   "author": "Claudio Maldonado",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MClaudio/ApiOMDb/issues"
+    "url": "https://github.com/MClaudio/Practica00-Consumo-de-APIs-en-la-nube/issues"
   },
-  "homepage": "https://github.com/MClaudio/ApiOMDb#readme",
+  "homepage": "https://github.com/MClaudio/Practica00-Consumo-de-APIs-en-la-nube#readme",
   "dependencies": {
     "express": "^4.17.1"
   }
