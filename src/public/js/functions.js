@@ -1,12 +1,14 @@
 var movies = null;
-var nextIndex = 5;
-var lastIndex = 0;
+var indexArray = 1;
+var textSearch = '2020';
+var totalR = 0
+
 
 document.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname.indexOf("movie/") === -1) {
         const fecha = new Date()
         const anio = fecha.getFullYear()
-        const url = "http://www.omdbapi.com/?apikey=a784252&s=" + anio;
+        const url = "http://www.omdbapi.com/?apikey=a784252&s=" + textSearch;
         listmovies(url);
     } else {
         const link = window.location.pathname
@@ -22,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function search(e) {
     e.preventDefault();
     const text = document.querySelector("#form-search input[type=search]")
+    textSearch = text.value
+    indexArray = 1
     url = "http://www.omdbapi.com/?apikey=a784252&s=" + text.value;
     listmovies(url);
 }
@@ -36,20 +40,40 @@ function listmovies(url) {
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText)
+            totalR = response.totalResults;
             movies = response.Search;
-            moviePagination()
-            const listpagination = document.querySelector('#pagination-items');
-            let j = 1;
-            let list = '';
-            for (let i = 0; i < movies.length; i += 5) {
-                list += `<li class="page-item"><a class="page-link" style="cursor: pointer;" onclick="pagination(this, ${j})">${j}</a></li>`;
-
-                j += 1;
-            }
-            listpagination.innerHTML = list
-
-
-        } else {
+            let img = null
+            let HTML = ''
+                movies.forEach(movie => {
+                    //console.log(movie.Poster)
+                    if(movie.Poster === 'N/A'){
+                        img = "/img/movie.png";
+                    }else{
+                        img = movie.Poster;
+                    }
+                    console.log(img)
+                    HTML += `
+                        <div class="col-sm-5 col-md-3 mb-3">
+                            <div class="card">
+                                <img src="${img}" class="card-img-top" alt="..">
+                                <div class="card-body">
+                                    <h5 class="card-title">${movie.Title}</h5>
+                                    <p class="card-text">${movie.Year}</p>
+                                    <a href="/movie/${movie.imdbID}" class="btn btn-primary">Detalle</a>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                });
+                if(totalR <= 10){
+                    document.getElementById('back').classList.add("disabled");
+                }else{
+                    document.getElementById('back').classList.remove("disabled");
+                }
+                document.querySelector('#content-movies').innerHTML = HTML
+                document.getElementById('idx').innerHTML = `<a class="page-link">${indexArray}/${totalR}</a>`
+                
+            } else {
             document.querySelector('#content-movies').innerHTML = "<h2>No existe la pelicula.</h2>"
         }
     };
@@ -67,10 +91,16 @@ function movieSearch(url) {
         if (this.readyState == 4 && this.status == 200) {
             const movie = JSON.parse(this.responseText)
             var HTML = '';
+            let img = null
+            if(movie.Poster === 'N/A'){
+                img = "/img/movie.png";
+            }else{
+                img = movie.Poster;
+            }
             if (movie.Title) {
                 HTML = `
                 <div class="col">
-                <img src="${movie.Poster}" alt="...">
+                <img src="${img}" alt="...">
             </div>
 
             <div class="col">
@@ -93,42 +123,25 @@ function movieSearch(url) {
     xmlhttp.send()
 };
 
-function moviePagination() {
-    //console.log('Hola mundo')
-    if (movies.length < nextIndex) {
-        nextIndex = movies.length;
+
+function pagination(index) {
+    indexArray = indexArray + (index);
+    if(indexArray <= 1){
+        indexArray = 1
+        document.getElementById('next').classList.add("disabled");
+        
+    }else {
+        document.getElementById('next').classList.remove("disabled");
     }
-    if (movies != null) {
-        let HTML = ''
-        for (let i = lastIndex; i < nextIndex; i++) {
-            const movie = movies[i];
-            HTML += `
-                <div class="col mb-3">
-                <div class="card" style="width: 18rem;">
-                    <img src="${movie.Poster}" class="card-img-top" alt="..">
-                    <div class="card-body">
-                        <h5 class="card-title">${movie.Title}</h5>
-                        <p class="card-text">${movie.Year}</p>
-                        <a href="/movie/${movie.imdbID}" class="btn btn-primary">Detalle</a>
-                    </div>
-                </div>
-            </div>
-                `
-        }
-        document.querySelector('#content-movies').innerHTML = HTML
+   
+    if(indexArray === totalR || totalR <= 10){
+        document.getElementById('back').classList.add("disabled");
+    }else{
+        document.getElementById('back').classList.remove("disabled");
     }
-}
 
-function pagination(e, index) {
-    //e.preventDefault();
-    nextIndex = (index * 5);
-    lastIndex = (index * 5) - 5;
-
-    moviePagination();
-
-    //document.querySelector('#pagination-items .page-item').classList.remove("active");
-    //e.parentElement.classList.add("active");
+    let url = "http://www.omdbapi.com/?apikey=a784252&s="+textSearch+"&page="+indexArray;
+    listmovies(url);
 
 
-    //console.log(e.parentElement)
 };

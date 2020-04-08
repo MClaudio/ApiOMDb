@@ -16,7 +16,7 @@
             <a class="navbar-brand" href="/">OMDb API</a>
             <form class="form-inline" id="form-search">
                 <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Buscar</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
             </form>
         </div>
     </nav>
@@ -28,11 +28,22 @@
 
         <nav aria-label="...">
             <ul class="pagination pagination-lg justify-content-center" id="pagination-items">
+                <li class="page-item disabled" id="next">
+                    <a class="page-link" onclick="pagination(-1)" tabindex="-1" aria-disabled="false">Atras</a>
+                </li>
+                <li class="page-item disabled" id="idx">
+                    <a class="page-link">1</a>
+                </li>
+                <li class="page-item" id="back">
+                    <a class="page-link" onclick="pagination(1)">Siguiente</a>
+                </li>
             </ul>
         </nav>
-
-
     </div>
+
+
+    <footer class="blockquote-footer">By. <cite title="Claudio Maldonado">Claudio Maldonado</cite></footer>
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
