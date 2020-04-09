@@ -2,11 +2,13 @@
 Practica Plataformas Web
 
 ## Ejecucion
-para ejecutar el progragrama se nesesita tener instalado NodeJS y ejecutamos
+Para ejecutar el progragrama se nesesita tener instalado NodeJS y ejecutamos
 ```
 > npm install
 > npm start
 ```
+## Funciones
+
 Para el maquetado del sitio web se hace uso del framework css de Bootstrap.
 Una vez realizado el diseño web se procede a dar el funcionamiento  a la pagina para ello se realiza las peticiones a la api de http://www.omdbapi.com/ con la respectiva clave para la búsqueda de películas por nombre para ello se realiza una petición con Ajax que realizara la petición al la api de acuerdo al valor ingresado por el usuario se muestra la url de la petición.
 ```
