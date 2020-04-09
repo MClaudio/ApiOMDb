@@ -6,14 +6,12 @@ var totalR = 0
 
 document.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname.indexOf("movie/") === -1) {
-        const fecha = new Date()
-        const anio = fecha.getFullYear()
         const url = "http://www.omdbapi.com/?apikey=a784252&s=" + textSearch;
         listmovies(url);
     } else {
         const link = window.location.pathname
         const id = link.substring(7, link.length);
-        const url = "http://www.omdbapi.com/?apikey=a784252&i=" + id;
+        const url = "http://www.omdbapi.com/?apikey=a784252&i=" + id + "&plot=full";
         movieSearch(url)
     }
 
@@ -44,15 +42,14 @@ function listmovies(url) {
             movies = response.Search;
             let img = null
             let HTML = ''
-                movies.forEach(movie => {
-                    //console.log(movie.Poster)
-                    if(movie.Poster === 'N/A'){
-                        img = "/img/movie.png";
-                    }else{
-                        img = movie.Poster;
-                    }
-                    console.log(img)
-                    HTML += `
+            movies.forEach(movie => {
+                if (movie.Poster === 'N/A') {
+                    img = "/img/movie.png";
+                } else {
+                    img = movie.Poster;
+                }
+                console.log(img)
+                HTML += `
                         <div class="col-sm-5 col-md-3 mb-3">
                             <div class="card">
                                 <img src="${img}" class="card-img-top" alt="..">
@@ -64,16 +61,31 @@ function listmovies(url) {
                             </div>
                         </div>
                     `
-                });
-                if(totalR <= 10){
+            });
+
+            if (!document.getElementById('idx')) {
+                document.getElementById('pagination-items').innerHTML = `
+                <li class="page-item disabled" id="next" style="cursor: pointer;">
+                <a class="page-link" onclick="pagination(-1)">Atras</a>
+            </li>
+            <li class="page-item disabled" id="idx">
+                <a class="page-link">1</a>
+            </li>
+            <li class="page-item" id="back" style="cursor: pointer;">
+                <a class="page-link" onclick="pagination(1)">Siguiente</a>
+            </li>
+                `
+                if (totalR <= 10) {
                     document.getElementById('back').classList.add("disabled");
-                }else{
+                } else {
                     document.getElementById('back').classList.remove("disabled");
                 }
-                document.querySelector('#content-movies').innerHTML = HTML
-                document.getElementById('idx').innerHTML = `<a class="page-link">${indexArray}/${totalR}</a>`
-                
-            } else {
+            }
+            
+            document.querySelector('#content-movies').innerHTML = HTML
+            document.getElementById('idx').innerHTML = `<a class="page-link">${indexArray}/${totalR}</a>`
+
+        } else {
             document.querySelector('#content-movies').innerHTML = "<h2>No existe la pelicula.</h2>"
         }
     };
@@ -92,9 +104,9 @@ function movieSearch(url) {
             const movie = JSON.parse(this.responseText)
             var HTML = '';
             let img = null
-            if(movie.Poster === 'N/A'){
+            if (movie.Poster === 'N/A') {
                 img = "/img/movie.png";
-            }else{
+            } else {
                 img = movie.Poster;
             }
             if (movie.Title) {
@@ -105,11 +117,15 @@ function movieSearch(url) {
 
             <div class="col">
                 <h2>${movie.Title}</h2>
-                <p>Director: <span>${movie.Director}</span></p>
-                <p>Descripcion: ${movie.Plot}</p>
-                <p>Actores: ${movie.Actors}</p>
-                <p>Año: ${movie.Year}</p>
-                <p>Genero: ${movie.Genre}</p>
+                <p><strong>Director:</strong> <span>${movie.Director}</span></p>
+                <p><strong>Descripción:</strong> ${movie.Plot}</p>
+                <p><strong>Actores:</strong> ${movie.Actors}</p>
+                <p><strong>Año:</strong> ${movie.Year}</p>
+                <p><strong>Lenguaje:</strong> ${movie.Language}</p>
+                <p><strong>Pais:</strong> ${movie.Country}</p>
+                <p><strong>Genero:</strong> ${movie.Genre}</p>
+                <p><strong>Tipo:</strong>  ${movie.Type}</p>
+                
             </div>
                 `
             } else {
@@ -126,22 +142,20 @@ function movieSearch(url) {
 
 function pagination(index) {
     indexArray = indexArray + (index);
-    if(indexArray <= 1){
+    if (indexArray <= 1) {
         indexArray = 1
         document.getElementById('next').classList.add("disabled");
-        
-    }else {
+
+    } else {
         document.getElementById('next').classList.remove("disabled");
     }
-   
-    if(indexArray === totalR || totalR <= 10){
+
+    if (indexArray === totalR || totalR <= 10) {
         document.getElementById('back').classList.add("disabled");
-    }else{
+    } else {
         document.getElementById('back').classList.remove("disabled");
     }
-
-    let url = "http://www.omdbapi.com/?apikey=a784252&s="+textSearch+"&page="+indexArray;
+    let url = "http://www.omdbapi.com/?apikey=a784252&s=" + textSearch + "&page=" + indexArray;
     listmovies(url);
-
-
 };
+
