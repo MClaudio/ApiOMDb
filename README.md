@@ -140,6 +140,8 @@ function movieSearch(url) {
 La diferencia con el resultad anterior es que en esta petición nos devuelve toda la información de la película y se crea la pagina para mostrar el resultado de la información de la película.
 
 Para paginar los resultados se realiza el algoritmo que se sume las paginas al interactuar con los botones atrás y siguiente:
+
+![imagen](https://user-images.githubusercontent.com/15615518/78847942-e9756000-79d5-11ea-8c66-0f0023f2b0b5.png)
  
 Para el funcionamiento se crea la url con el numero de pagina que se va a buscar:
 ```js
